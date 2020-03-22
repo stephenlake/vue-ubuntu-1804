@@ -1,5 +1,5 @@
 <template>
-<div class="background" :style="{ 'background-image': bgImage }">
+<div class="background" :style="{ 'background-image': bgUrl }">
   <activity-bar></activity-bar>
   <sidebar></sidebar>
   <window></window>
@@ -13,8 +13,8 @@ import ActivityBar from './ActivityBar'
 export default {
 
   computed: {
-    bgImage() {
-      return 'url(../../assets/img/bg/ubuntu-1804-wallpaper.jpg)'
+    bgUrl() {
+      return `url('${window.location.host}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
     }
   },
 
