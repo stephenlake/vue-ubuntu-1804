@@ -1,5 +1,5 @@
 <template>
-<div class="background">
+<div class="background" :style="{ 'background-image': bgImage }">
   <activity-bar></activity-bar>
   <sidebar></sidebar>
   <window></window>
@@ -11,6 +11,13 @@ import Sidebar from './Sidebar'
 import ActivityBar from './ActivityBar'
 
 export default {
+
+  computed: {
+    bgImage() {
+      return 'url(../../assets/img/bg/ubuntu-1804-wallpaper.jpg)'
+    }
+  },
+
   components: {
     Window,
     Sidebar,
@@ -22,7 +29,6 @@ export default {
 .background {
   width: 100%;
   height: 100vh;
-  background-image: url('/assets/img/bg/ubuntu-1804-wallpaper.jpg');
   background-attachment: fixed;
   background-size: cover;
 }
