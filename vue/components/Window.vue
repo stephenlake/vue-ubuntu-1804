@@ -1,6 +1,6 @@
 <template>
 <draggable class="window" :x="pos.x" :y="pos.y" ref="draggable" @dragged="dragged" :style="windowStyle">
-  <div class="title-bar" @mousedown="drag">
+  <div class="titlebar" @mousedown="drag">
     <div class="title">Title</div>
   </div>
   <div class="window-content"></div>
@@ -64,7 +64,7 @@ export default {
   height: 100%;
 }
 
-.title-bar {
+.titlebar {
   background-image: linear-gradient(to bottom, #55534b 60%, #43423d);
   border-radius: 8px;
   border-bottom-left-radius: 0;
@@ -72,12 +72,17 @@ export default {
   border-bottom: 2px solid #423838;
   color: #dfdbd2;
   font-weight: 600;
-
   height: 36px;
   width: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.title-bar .title {
+.titlebar .title {
   font-size: 14px;
   padding-top: 11px;
   padding-left: 12px;

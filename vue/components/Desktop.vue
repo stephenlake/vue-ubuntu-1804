@@ -1,5 +1,5 @@
 <template>
-<div class="background" :style="{ 'background-image': bgUrl }">
+<div class="background" :style="{ 'background-image': `url('${bgUrl}')` }">
   <activity-bar></activity-bar>
   <sidebar></sidebar>
   <window></window>
@@ -14,7 +14,7 @@ export default {
 
   computed: {
     bgUrl() {
-      return `url('${window.location.pathname}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
+      return `${process.env.NODE_ENV === 'production' ? window.location.pathname: ''}/assets/img/bg/ubuntu-1804-wallpaper.jpg`
     }
   },
 
