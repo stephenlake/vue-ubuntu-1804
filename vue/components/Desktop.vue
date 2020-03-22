@@ -14,7 +14,7 @@ export default {
 
   computed: {
     bgUrl() {
-      return `url('${window.location.host}${window.location.pathname}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
+      return `url('${window.location.pathname}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
     }
   },
 
