@@ -4,7 +4,9 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-
+  env: {
+    debug: true,
+  }
 }
 
 export default new Vuex.Store({

@@ -1,26 +1,22 @@
 <template>
-<draggable class="window" :x="pos.x" :y="pos.y" ref="draggable" @dragged="dragged" :style="windowStyle">
-  <div class="titlebar" @mousedown="drag">
+<resizable class="window" :style="windowStyle" :w="size.w" :h="size.h" :x="pos.x" :y="pos.y" @resized="resized" @dragged="dragged">
+  <draggable class="titlebar" :x="pos.x" :y="pos.y" @dragged="dragged">
     <div class="title">Title</div>
-  </div>
-  <div class="window-content"></div>
-</draggable>
+  </draggable>
+  <container>
+    <slot class="content"></slot>
+  </container>
+</resizable>
 </template>
 <script>
-import Draggable from './Draggable'
-
 export default {
-  components: {
-    Draggable,
-  },
-
   computed: {
     windowStyle() {
       return {
         top: `${this.pos.y}px`,
         left: `${this.pos.x}px`,
-        width: this.size.w,
-        height: this.size.h
+        width: `${this.size.w}px`,
+        height: `${this.size.h}px`,
       }
     }
   },
@@ -32,59 +28,73 @@ export default {
         y: 50,
       },
       size: {
-        w: '700px',
-        h: '400px',
+        w: 700,
+        h: 400,
       }
     }
   },
 
   methods: {
-    drag(e) {
-      this.$refs.draggable.drag(e)
-    },
     dragged(pos) {
       this.pos.x = pos.x
       this.pos.y = pos.y
+    },
+    resized(size) {
+      this.size.w = size.w
+      this.size.h = size.h
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .window {
   position: absolute;
-  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.18);
   border-radius: 12px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #f2f1f0;
   border: 1px solid rgba(0, 0, 0, 0.69);
-}
-
-.window-content {
+  width: 100%;
   height: 100%;
-}
-
-.titlebar {
-  background-image: linear-gradient(to bottom, #55534b 60%, #43423d);
+  overflow: contain;
   border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.content {
+  margin-top: 36px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.titlebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, #55534b 60%, #43423d);
   border-bottom: 2px solid #423838;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   color: #dfdbd2;
   font-weight: 600;
   height: 36px;
   width: 100%;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .titlebar .title {
   font-size: 14px;
   padding-top: 11px;
   padding-left: 12px;
+}
+
+.resizable {
+  height: 100%;
+  width: 100%;
 }
 </style>

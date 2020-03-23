@@ -17,6 +17,12 @@ body {
   overflow-y: hidden;
   overflow-x: hidden;
   margin: 0;
-  font-family: 'Ubuntu'
+  font-family: 'Ubuntu';
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

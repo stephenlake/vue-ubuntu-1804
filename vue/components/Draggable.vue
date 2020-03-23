@@ -1,5 +1,5 @@
 <template>
-<div>
+<div @mousedown="startDrag($event)">
   <slot></slot>
 </div>
 </template>
@@ -21,10 +21,10 @@ export default {
   watch: {
     dragging: function(dragging) {
       if (dragging) {
-        document.addEventListener('mousemove', this.emitCoords)
+        document.addEventListener('mousemove', this.emitPosition)
         document.addEventListener('mouseup', this.endDrag)
       } else {
-        document.removeEventListener('mousemove', this.emitCoords)
+        document.removeEventListener('mousemove', this.emitPosition)
         document.removeEventListener('mouseup', this.endDrag)
       }
     }
@@ -35,21 +35,20 @@ export default {
   },
 
   methods: {
-    drag(e) {
+    startDrag(e) {
       this.pos.x = e.clientX - this.x
       this.pos.y = e.clientY - this.y
       this.dragging = true
+      this.emitPosition(e)
     },
-    emitCoords(e) {
-      const pos = this.pos
-
+    emitPosition(e) {
       this.$emit('dragged', {
         x: e.clientX - this.pos.x,
         y: e.clientY - this.pos.y
       })
     },
     endDrag(e) {
-      this.pos.x = e.clientX - this.pos.x,
+      this.pos.x = e.clientX - this.pos.x
       this.pos.y = e.clientY - this.pos.y
       this.dragging = false
     }
