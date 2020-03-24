@@ -3,9 +3,7 @@
   <draggable class="titlebar" :x="pos.x" :y="pos.y" @dragged="dragged">
     <div class="title">Title</div>
   </draggable>
-  <container>
-
-  </container>
+  <container></container>
 </resizable>
 </template>
 <script>
