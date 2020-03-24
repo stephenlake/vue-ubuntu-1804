@@ -15,7 +15,7 @@ export default {
       resizeRight: false,
       resizeBottom: false,
       resizeLeft: false,
-      resizeHandleSize: 7,
+      resizeHandleSize: 12,
       pos: {
         x: 0,
         y: 0,
@@ -35,7 +35,7 @@ export default {
     handleStyle() {
       if (this.$store.state.env.debug) {
         return {
-          border: `1px solid #ff0000`,
+          //border: `1px solid #ff0000`,
         }
       }
       return {}

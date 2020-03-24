@@ -1,6 +1,7 @@
 <template>
 <div class="container">
   <div class="window-size" :style="sizeTextStyle" v-if="$store.state.env.debug">{{ size.w }} x {{ size.h }}</div>
+  <slot></slot>
 </div>
 </template>
 <script>

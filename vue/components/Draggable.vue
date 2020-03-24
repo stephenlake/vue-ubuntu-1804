@@ -1,5 +1,5 @@
 <template>
-<div @mousedown="startDrag($event)">
+<div class="draggable" @mousedown="startDrag">
   <slot></slot>
 </div>
 </template>
@@ -55,3 +55,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.draggable {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+</style>

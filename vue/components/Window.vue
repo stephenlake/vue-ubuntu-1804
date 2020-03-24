@@ -4,7 +4,7 @@
     <div class="title">Title</div>
   </draggable>
   <container>
-    <slot class="content"></slot>
+
   </container>
 </resizable>
 </template>
@@ -49,12 +49,12 @@ export default {
 <style scoped>
 .window {
   position: absolute;
-  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 0px 13px 0px rgba(0, 0, 0, 0.8);
   border-radius: 12px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #f2f1f0;
-  border: 1px solid rgba(0, 0, 0, 0.69);
+  border: 1px solid rgb(85, 83, 75);
   width: 100%;
   height: 100%;
   overflow: contain;
@@ -78,7 +78,7 @@ export default {
   left: 0;
   background-image: linear-gradient(to bottom, #55534b 60%, #43423d);
   border-bottom: 2px solid #423838;
-  border-radius: 8px;
+  border-radius: 6px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   color: #dfdbd2;
