@@ -21,9 +21,11 @@ export default {
   watch: {
     dragging: function(dragging) {
       if (dragging) {
+        this.setCursor('grabbing')
         document.addEventListener('mousemove', this.emitPosition)
         document.addEventListener('mouseup', this.endDrag)
       } else {
+        this.setCursor('default')
         document.removeEventListener('mousemove', this.emitPosition)
         document.removeEventListener('mouseup', this.endDrag)
       }

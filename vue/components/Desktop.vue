@@ -1,10 +1,11 @@
 <template>
 <div class="background" :style="{ 'background-image': bgUrl }">
-  <container></container>
   <activity-bar></activity-bar>
   <sidebar></sidebar>
-  <window>
-    <container></container>
+  <window @resized="exampleResize" @dragged="exampleDrag" >
+    <template v-slot:titlebar>
+      Size: {{ size.w }} x {{ size.h }} | Position: {{ pos.x }} x {{ pos.y }}
+    </template>
   </window>
 </div>
 </template>
@@ -17,25 +18,18 @@ export default {
         y: 100,
       },
       size: {
-        w: 500,
-        h: 500,
+        w: 600,
+        h: 600,
       }
     }
   },
   computed: {
     bgUrl() {
       return `url('${process.env.NODE_ENV == 'production' ? window.location.pathname : ''}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
-    },
-    dummyStyle() {
-      return {
-        position: 'absolute',
-        background: '#f3f2f2',
-        top: `${this.pos.y}px`,
-        left: `${this.pos.x}px`,
-        width: `${this.size.w}px`,
-        height: `${this.size.h}px`,
-      }
     }
+  },
+  mounted() {
+    this.$store.state.references.desktop = this
   },
   methods: {
     exampleResize(size) {

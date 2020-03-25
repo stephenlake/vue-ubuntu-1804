@@ -1,5 +1,5 @@
 <template>
-<div>
+<div :style="$store.state.style">
   <router-view></router-view>
 </div>
 </template>

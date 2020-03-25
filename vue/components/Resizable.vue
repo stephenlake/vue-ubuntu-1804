@@ -1,5 +1,5 @@
 <template>
-<div class="resizable" @mousedown.prevent="startResize" :style="handleStyle">
+<div class="resizable" @mouseleave.prevent="revertCursor" @mousemove.prevent="updateCursor" @mousedown.prevent="startResize">
   <slot></slot>
 </div>
 </template>
@@ -15,7 +15,7 @@ export default {
       resizeRight: false,
       resizeBottom: false,
       resizeLeft: false,
-      resizeHandleSize: 12,
+      resizeHandleSize: 7,
       pos: {
         x: 0,
         y: 0,
@@ -31,23 +31,13 @@ export default {
     }
   },
 
-  computed: {
-    handleStyle() {
-      if (this.$store.state.env.debug) {
-        return {
-          //border: `1px solid #ff0000`,
-        }
-      }
-      return {}
-    }
-  },
-
   watch: {
     resizing: function(resizing) {
       if (resizing) {
         document.addEventListener('mousemove', this.emitResize)
         document.addEventListener('mouseup', this.endResize)
       } else {
+        this.setCursor('default')
         document.removeEventListener('mousemove', this.emitResize)
         document.removeEventListener('mouseup', this.endResize)
       }
@@ -59,8 +49,42 @@ export default {
   },
 
   methods: {
+    revertCursor() {
+      if (!this.resizing) {
+        this.setCursor('default')
+      }
+    },
+    updateCursor(e) {
+      if (this.resizing) {
+        return
+      }
+
+      if (this.isTop(e)) {
+        if (this.isLeft(e)) {
+          this.setCursor('nw-resize')
+        } else if (this.isRight(e)) {
+          this.setCursor('ne-resize')
+        } else {
+          this.setCursor('n-resize')
+        }
+      } else if (this.isBottom(e)) {
+        if (this.isLeft(e)) {
+          this.setCursor('sw-resize')
+        } else if (this.isRight(e)) {
+          this.setCursor('se-resize')
+        } else {
+          this.setCursor('s-resize')
+        }
+      } else if (this.isRight(e)) {
+        this.setCursor('e-resize')
+      } else if (this.isLeft(e)) {
+        this.setCursor('w-resize')
+      } else {
+        this.revertCursor()
+      }
+    },
     isTop(e) {
-      return e.offsetY <= this.resizeHandleSize
+      return e.offsetY <= this.resizeHandleSize && e.offsetY > 0
     },
     isRight(e) {
       return e.offsetX >= this.$el.clientWidth - this.resizeHandleSize
@@ -87,7 +111,6 @@ export default {
 
     },
     emitResize(e) {
-
       if (this.resizeLeft) {
         this.size.w -= e.clientX - this.pos.x
 
