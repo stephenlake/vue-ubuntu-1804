@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     env: {
-      debug: true,
+      debug: false,
     },
     style: {
       cursor: 'default',
