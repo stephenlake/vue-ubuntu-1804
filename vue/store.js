@@ -14,6 +14,21 @@ export default new Vuex.Store({
     },
     references: {
       desktop: null,
+    },
+    system: {
+      activities: {
+        available: [{
+          name: 'Text Editor',
+          icon: '',
+          windows: [], // Apps can have multiple windows open
+          tags: [
+            'text',
+            'edit',
+            'gedit'
+          ],
+        }],
+        running: [],
+      }
     }
   }
 })
