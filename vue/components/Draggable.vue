@@ -1,5 +1,7 @@
 <template>
-<div class="draggable" @mousedown="startDrag">
+<div class="draggable"
+  :class="{ highZindex: dragging }"
+  @mousedown.prevent="startDrag">
   <slot></slot>
 </div>
 </template>
@@ -58,6 +60,10 @@ export default {
 }
 </script>
 <style scoped>
+.highZindex {
+  z-index: 9999;
+}
+
 .draggable {
   position: absolute;
   width: 100%;

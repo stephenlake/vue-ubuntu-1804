@@ -1,44 +1,73 @@
 <template>
-<div class="background" :style="{ 'background-image': bgUrl }">
-  <activity-bar></activity-bar>
-  <sidebar></sidebar>
-  <window @resized="exampleResize" @dragged="exampleDrag" >
-    <template v-slot:titlebar>
-      Size: {{ size.w }} x {{ size.h }} | Position: {{ pos.x }} x {{ pos.y }}
-    </template>
-  </window>
+<div class="background"
+  :style="style">
+
+  <activity-overlay ref="overlay"
+    @exit="deactivateOverlay"
+    :mode="overlayMode"></activity-overlay>
+
+  <activity-bar @activated="activateOverlay"
+    :overlayActive="overlayActive"></activity-bar>
+
+  <activity-sidebar @activated="activateOverlay"
+    :overlayActive="overlayActive"></activity-sidebar>
+
+  <!-- <window @resized="exampleResize" @dragged="exampleDrag">
+      <template v-slot:titlebar>
+        Size: {{ size.w }} x {{ size.h }} | Position: {{ pos.x }} x {{ pos.y }}
+      </template>
+    </window> -->
+
+  <DesktopIcon v-for="(app, index) in apps"
+    :app="app"
+    :key="index"
+    :initialPos="{x: 84, y: (index+1)*44+(index*54) }" />
+
 </div>
 </template>
 <script>
+import Collect from 'collect.js'
+
 export default {
   data() {
     return {
-      pos: {
-        x: 100,
-        y: 100,
+      style: {
+        backgroundImage: `url('${process.env.NODE_ENV == 'production' ? window.location.pathname : ''}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
       },
-      size: {
-        w: 600,
-        h: 600,
-      }
+      overlayActive: false,
+      overlayMode: null,
     }
   },
   computed: {
-    bgUrl() {
-      return `url('${process.env.NODE_ENV == 'production' ? window.location.pathname : ''}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
+    apps() {
+      return Collect(this.$store.state.system.activities.available).where('desktop', true).all()
     }
   },
   mounted() {
     this.$store.state.references.desktop = this
   },
   methods: {
-    exampleResize(size) {
-      this.size.w = size.w
-      this.size.h = size.h
+    toggleOverlay(mode) {
+      if (this.overlayIsActive()) {
+        if (this.overlayMode !== mode) {
+          this.overlayMode = mode
+        } else {
+          this.deactivateOverlay()
+        }
+      } else {
+        this.activateOverlay(mode)
+      }
     },
-    exampleDrag(pos) {
-      this.pos.x = pos.x
-      this.pos.y = pos.y
+    overlayIsActive() {
+      return this.overlayActive
+    },
+    activateOverlay(mode) {
+      this.overlayMode = mode
+      this.overlayActive = true
+    },
+    deactivateOverlay() {
+      this.overlayActive = false
+      this.overlayMode = null
     }
   }
 }

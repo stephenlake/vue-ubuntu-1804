@@ -34,6 +34,7 @@ Vue.mixin({
   }
 })
 
+Vue.prototype.spacetime = SpaceTime
 window.spacetime = SpaceTime
 
 const router = new VueRouter({

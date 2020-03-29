@@ -18,15 +18,42 @@ export default new Vuex.Store({
     system: {
       activities: {
         available: [{
-          name: 'Text Editor',
-          icon: '',
-          windows: [], // Apps can have multiple windows open
-          tags: [
-            'text',
-            'edit',
-            'gedit'
-          ],
-        }],
+            name: 'Text Editor',
+            iconGeneric: '/assets/img/ico/gedit/256.png',
+            iconTray: '/assets/img/ico/gedit/tray.png',
+            tags: [
+              'gedit',
+              'notepad',
+              'editor',
+            ],
+            favorite: false,
+            desktop: false,
+          },
+          {
+            name: 'Whethan - All in my head.mp3',
+            iconGeneric: '/assets/img/ico/audio/256.png',
+            iconTray: '/assets/img/ico/audio/tray.png',
+            tags: [
+              'audio',
+              'music',
+            ],
+            favorite: false,
+            desktop: true,
+          }, {
+            name: 'Steam',
+            iconGeneric: '/assets/img/ico/steam/256.png',
+            iconTray: '/assets/img/ico/steam/tray.png',
+            tags: [
+              'game',
+              'steam',
+              'valve',
+              'volvo',
+              'plumbing',
+            ],
+            favorite: false,
+            desktop: false,
+          }
+        ],
         running: [],
       }
     }

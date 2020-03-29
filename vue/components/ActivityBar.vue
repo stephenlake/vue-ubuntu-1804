@@ -1,22 +1,41 @@
 <template>
-<div class="activity-bar" :style="style">
-  <div class="label main" :class="{ active: active }" @click="active = !active">Activites</div>
-  <div class="label datetime">{{ datetime.value.format('{day-short} {hour-24}:{minute-pad}') }}</div>
-  <div class="label taskbar">
+<div class="activity-bar"
+  :style="style">
+
+  <div class="label main"
+    :class="{ active: overlayActive }"
+    @click="toggleOverlay">Activities</div>
+
+  <div class="label datetime"
+    @click="datetime.showPopdown = !datetime.showPopdown">
+    {{ datetime.value.format('{day-short} {hour-24-pad}:{minute-pad}') }}
+  </div>
+
+  <CalendarPopdown :show="datetime.showPopdown"/>
+  <SettingsPopdown :show="settings.showPopdown"/>
+
+  <div class="label taskbar"
+    @click="settings.showPopdown = !settings.showPopdown">
     <i class="fa fa-wifi"></i>
     <i class="fa fa-volume-up"></i>
     <i class="fa fa-caret-down"></i>
   </div>
+
 </div>
 </template>
 <script>
 export default {
+  props: ['overlayActive'],
+
   data() {
     return {
-      active: false,
       datetime: {
         value: spacetime('now'),
         timer: null,
+        showPopdown: false,
+      },
+      settings: {
+        showPopdown: false,
       },
       properties: {
         height: 26,
@@ -31,10 +50,13 @@ export default {
     this.registerDatetime()
   },
   methods: {
+    toggleOverlay() {
+      this.$desktop.toggleOverlay('activities')
+    },
     registerDatetime() {
       this.datetime.timer = setInterval(() => {
         this.datetime.value = spacetime('now')
-      }, 10000)
+      }, 1000)
     },
     unregisterDatetime() {
       clearInterval(this.datetime.timer)
@@ -50,7 +72,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .activity-bar {
   position: absolute;
   left: 0;
@@ -63,7 +85,7 @@ export default {
 .activity-bar .label {
   top: 5px;
   position: absolute;
-  color: #e6d8d8;
+  color: #eeeeec;
   font-weight: bold;
   font-size: 15px;
   padding: 0 12px;
@@ -80,7 +102,7 @@ export default {
 }
 
 .activity-bar .label.active {
-  border-bottom: 2px solid #de9104;
+  border-bottom: 2px solid #dd4814;
 }
 
 .activity-bar .datetime {
