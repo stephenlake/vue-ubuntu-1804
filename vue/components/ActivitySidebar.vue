@@ -59,6 +59,7 @@ export default {
 <style scoped>
 .sidebar {
   position: absolute;
+  z-index: 101;
 }
 
 .sidebar.left {

@@ -17,6 +17,9 @@ Vue.mixin({
     }
   },
   methods: {
+    asset(asset) {
+      return `${process.env.NODE_ENV == 'production' ? window.location.pathname : ''}/assets/${asset}`
+    },
     setCursor(cursor) {
       // Prevent another component from changing the cursor
       // when its being controlled by a different component

@@ -19,8 +19,8 @@ export default new Vuex.Store({
       activities: {
         available: [{
             name: 'Text Editor',
-            iconGeneric: '/assets/img/ico/gedit/256.png',
-            iconTray: '/assets/img/ico/gedit/tray.png',
+            iconGeneric: '/img/ico/gedit/256.png',
+            iconTray: '/img/ico/gedit/tray.png',
             tags: [
               'gedit',
               'notepad',
@@ -31,8 +31,8 @@ export default new Vuex.Store({
           },
           {
             name: 'Whethan - All in my head.mp3',
-            iconGeneric: '/assets/img/ico/audio/256.png',
-            iconTray: '/assets/img/ico/audio/tray.png',
+            iconGeneric: '/img/ico/audio/256.png',
+            iconTray: '/img/ico/audio/tray.png',
             tags: [
               'audio',
               'music',
@@ -41,8 +41,8 @@ export default new Vuex.Store({
             desktop: true,
           }, {
             name: 'Steam',
-            iconGeneric: '/assets/img/ico/steam/256.png',
-            iconTray: '/assets/img/ico/steam/tray.png',
+            iconGeneric: '/img/ico/steam/256.png',
+            iconTray: '/img/ico/steam/tray.png',
             tags: [
               'game',
               'steam',

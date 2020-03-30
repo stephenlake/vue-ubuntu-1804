@@ -6,7 +6,7 @@
     :x="pos.x"
     :y="pos.y">
     <img class="graphic"
-      :src="app.iconGeneric" />
+      :src="asset(app.iconGeneric)" />
     <div class="name">{{ app.name }}</div>
   </draggable>
 </div>
@@ -59,6 +59,7 @@ export default {
   width: 64px;
   height: auto;
   overflow: contain;
+  z-index: 3;
 }
 
 .icon .graphic {

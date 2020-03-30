@@ -80,6 +80,7 @@ export default {
   width: 100%;
   height: 26px;
   background: rgba(0, 0, 0, 0.1);
+  z-index: 101;
 }
 
 .activity-bar .label {

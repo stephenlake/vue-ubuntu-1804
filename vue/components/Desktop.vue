@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       style: {
-        backgroundImage: `url('${process.env.NODE_ENV == 'production' ? window.location.pathname : ''}/assets/img/bg/ubuntu-1804-wallpaper.jpg')`
+        backgroundImage: `url('${this.asset('img/bg/ubuntu-1804-wallpaper.jpg')}')`
       },
       overlayActive: false,
       overlayMode: null,

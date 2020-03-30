@@ -16,7 +16,7 @@
     <div class="app"
       v-for="(app, index) in apps"
       @click="openApp(app)">
-      <img :src="app.iconGeneric" />
+      <img :src="asset(app.iconGeneric)" />
       <div class="name">{{ app.name }}</div>
     </div>
   </div>
@@ -94,6 +94,7 @@ export default {
   visibility: hidden;
   opacity: 0;
   transition: opacity 70ms linear;
+  z-index: 100;
 }
 
 .overlay.active {
