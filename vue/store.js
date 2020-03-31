@@ -57,20 +57,21 @@ export default new Vuex.Store({
             ],
             favorite: false,
             desktop: true,
-          }, {
-            name: 'Steam',
-            iconGeneric: '/img/ico/steam/256.png',
-            iconTray: '/img/ico/steam/tray.png',
-            tags: [
-              'game',
-              'steam',
-              'valve',
-              'volvo',
-              'plumbing',
-            ],
-            favorite: false,
-            desktop: false,
-          }
+          },
+          // {
+          //   name: 'Steam',
+          //   iconGeneric: '/img/ico/steam/256.png',
+          //   iconTray: '/img/ico/steam/tray.png',
+          //   tags: [
+          //     'game',
+          //     'steam',
+          //     'valve',
+          //     'volvo',
+          //     'plumbing',
+          //   ],
+          //   favorite: false,
+          //   desktop: false,
+          // }
         ],
         running: [],
       }
