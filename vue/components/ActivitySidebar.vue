@@ -42,8 +42,8 @@ export default {
         style.height = `${this.properties.width}px`
       } else {
         style.top = `${this.$store.state.env.ui.activityBar.height}px`
-        style.paddingTop = '6px'
         style.width = `${this.properties.width}px`
+        style.height = `calc(100% - ${this.$store.state.env.ui.activityBar.height}px)`
       }
 
       return style
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     toggleOverlay() {
-      this.$desktop.toggleOverlay('apps')
+      this.desktop.toggleOverlay('apps')
     }
   }
 }
@@ -59,8 +59,8 @@ export default {
 <style scoped>
 .sidebar {
   position: absolute;
-  z-index: 101;
   transition: background 300ms ease-in;
+  z-index: 101;
 }
 
 .sidebar.left {

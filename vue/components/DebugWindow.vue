@@ -8,22 +8,22 @@
   </template>
   <template v-slot:content>
     <div class="field">
-      <label>Grid Block Size {{ $store.state.env.debug.grid.size }} Default: 32</label>
+      <label>Grid Block Size {{ $store.state.env.debug.grid.size }}px</label>
       <Slider v-model="$store.state.env.debug.grid.size"
-        :min="0"
-        :max="200" />
+        :min="4"
+        :max="100" />
     </div>
     <div class="field">
-      <label>Sidebar Size Current: {{ $store.state.env.ui.sidebar.width }} Default: 32</label>
+      <label>Sidebar Size: {{ $store.state.env.ui.sidebar.width }}px</label>
       <Slider v-model="$store.state.env.ui.sidebar.width"
-        :min="0"
-        :max="200" />
+        :min="20"
+        :max="84" />
     </div>
 
     <div class="field">
-      <label>Activity Bar Size: {{ $store.state.env.ui.activityBar.height }} Default: 26</label>
+      <label>Activity Bar Size: {{ $store.state.env.ui.activityBar.height }}px</label>
       <Slider v-model="$store.state.env.ui.activityBar.height"
-        :min="0"
+        :min="22"
         :max="64" />
     </div>
 
@@ -50,8 +50,8 @@
 <script>
 export default {
   mounted() {
-    this.pos.x = this.$desktop.$el.offsetWidth - (this.size.w + 30)
-    this.pos.y = this.$desktop.$el.offsetHeight - (this.size.h + 30)
+    this.pos.x = this.desktop.$el.offsetWidth - (this.size.w + 30)
+    this.pos.y = this.desktop.$el.offsetHeight - (this.size.h + 30)
   },
   data() {
     return {
@@ -71,10 +71,10 @@ export default {
 .field {
   display: block;
   margin-bottom: 5px;
+  padding: 8px 12px 0 8px;
 }
 
 .field label {
-  padding: 4px 8px;
   font-size: 12px;
 }
 

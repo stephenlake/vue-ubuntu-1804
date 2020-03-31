@@ -92,6 +92,7 @@ export default {
   overflow-wrap: break-word;
   left: 24px;
   /* Half of total icon */
+  text-align: center;
   transform: translate(-50%, 0);
   margin: 0 auto;
   padding: 2px 5px;

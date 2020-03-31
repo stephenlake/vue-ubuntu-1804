@@ -10,10 +10,9 @@ import Desktop from './components/Desktop.vue'
 
 Vue.use(VueRouter)
 Vue.mixin({
-
   computed: {
-    $desktop() {
-      return this.$store.state.references.desktop
+    desktop() {
+      return Store.state.references.desktop
     }
   },
   methods: {

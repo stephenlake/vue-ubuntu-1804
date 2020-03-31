@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     toggleOverlay() {
-      this.$desktop.toggleOverlay('activities')
+      this.desktop.toggleOverlay('activities')
     },
     registerDatetime() {
       this.datetime.timer = setInterval(() => {
@@ -64,6 +64,7 @@ export default {
     },
     style() {
       let style = {
+        fontSize: `${(this.properties.height/2)+1}px`,
         height: `${this.properties.height}px`,
       }
 
@@ -84,22 +85,21 @@ export default {
   left: 0;
   top: 0;
   width: 100%;
-  height: 26px;
   z-index: 101;
   transition: background 300ms ease-in;
 }
 
 .activity-bar .label {
-  top: 5px;
   position: absolute;
+  top: 50%;
   color: #eeeeec;
   font-weight: bold;
-  font-size: 15px;
   padding: 0 12px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.43);
 }
 
 .activity-bar .label.main {
+  transform: translate(0, -50%);
   left: 0;
 }
 
@@ -114,7 +114,7 @@ export default {
 
 .activity-bar .datetime {
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
 }
 
 .activity-bar .taskbar {
@@ -122,6 +122,7 @@ export default {
   padding: 0 13px;
   text-align: center;
   margin: 0 auto;
+  transform: translate(0, -50%);
 }
 
 .activity-bar .taskbar .fa {

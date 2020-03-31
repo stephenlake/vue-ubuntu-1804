@@ -65,8 +65,8 @@ export default {
 
 .vdp-datepicker__calendar .cell,
 .vdp-datepicker__calendar .cell.day-header {
-  font-size: 13px;
-  color: #cacac9;
+  font-size: 13px !important;
+  color: #cacac9 !important;
 }
 
 .vdp-datepicker__calendar header .next:after {

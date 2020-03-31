@@ -5,7 +5,7 @@
 
   <div class="icon">
     <img :src="asset(app.iconGeneric)"
-      v-if="app.iconGeneric" />
+      :style="imageStyle" />
   </div>
 
 </div>
@@ -16,16 +16,24 @@ export default {
 
   computed: {
     style() {
-      return {
-        width: `${this.size}px`,
-        height: `${this.size}px`,
+      let style = {
+        width: `${this.baseWidth}px`,
+        height: `${this.baseWidth}px`,
       }
+
+      return style
     },
-    size() {
+    imageStyle() {
       if (this.app.toggler) {
-        return this.baseWidth
-      } else {
-        return this.baseWidth - 16
+        return {
+          width: `${this.baseWidth/2}px`,
+          height: `${this.baseWidth/2}px`,
+        }
+      }
+
+      return {
+        width: `${this.baseWidth-8}px`,
+        height: `${this.baseWidth-8}px`,
       }
     }
   }
@@ -33,32 +41,45 @@ export default {
 </script>
 <style scoped>
 .app {
-  text-align: center;
   border-radius: 3px;
-  margin: 0.1em;
-  max-width: 100%;
+  position: relative;
+
 }
 
-.app:not(.toggler) {
-  padding: 5px;
+.app:not(.bar-bottom) {
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .app:hover {
+  background-size: 100% 100%;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.app.bar-bottom {
+.app .bar-bottom {
   display: inline-block;
+
+}
+
+.app:not(.toggler) .icon {
+  padding: 6px;
+}
+
+.app.toggler .icon {
+  padding: 1px;
+  bottom: 2px;
 }
 
 .app .icon img {
-  width: 100%;
-  max-width: 100%;
-}
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
+}
 .app.toggler:not(.bar-bottom) {
   position: absolute;
-  bottom: 30px;
+  bottom: 2px;
 }
 
 .app.toggler.bar-bottom {
@@ -69,11 +90,11 @@ export default {
   margin: 0;
 }
 
-.app.toggler .icon {
+.app.toggler:not(.bar-bottom) img {
   position: absolute;
-  padding: 1%;
   top: 50%;
   left: 50%;
+  bottom: 0;
   transform: translate(-50%, -50%);
 }
 </style>

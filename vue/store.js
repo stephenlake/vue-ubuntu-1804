@@ -9,7 +9,7 @@ export default new Vuex.Store({
       debug: {
         active: true,
         grid: {
-          size: 36,
+          size: 16,
         }
       },
       ui: {
@@ -22,7 +22,7 @@ export default new Vuex.Store({
           width: 36,
         },
         activityBar: {
-          height: 26,
+          height: 28,
           opacity: 0.1,
         }
       }
@@ -49,7 +49,7 @@ export default new Vuex.Store({
             desktop: false,
           },
           {
-            name: 'Whethan - All in my head.mp3',
+            name: 'Some mp3.mp3',
             iconGeneric: '/img/ico/audio/256.png',
             iconTray: '/img/ico/audio/tray.png',
             tags: [

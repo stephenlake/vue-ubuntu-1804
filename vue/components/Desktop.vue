@@ -21,7 +21,7 @@
       :key="index"
       :initialPos="{x: 54, y: (index+1)*54+(index*54) }" />
 
-    <DebugWindow v-show="$store.state.env.debug.active" />
+    <DebugWindow v-if="desktop && $store.state.env.debug.active && $store.state.env.ui.activityOverlayOpen === false" />
 
   </div>
 </container>
@@ -82,8 +82,11 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     this.$store.state.references.desktop = this
+  },
+
+  created() {
     this.registerKeyListener()
   },
 

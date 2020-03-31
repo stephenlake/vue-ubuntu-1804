@@ -6,8 +6,8 @@
   :x="pos.x"
   :y="pos.y"
   @resized="resized"
-  @dragged="dragged"
-  v-show="$store.state.env.ui.activityOverlayOpen === false">
+  @dragged="dragged">
+
   <window-titlebar :windowPos="pos"
     @maximize="maximize"
     @dragged="dragged">
@@ -164,18 +164,18 @@ export default {
         if (this.$store.state.env.ui.sidebar.position == 'right') {
           this.pos.x = 0
           this.pos.y = this.$store.state.env.ui.activityBar.height
-          this.size.w = this.$desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
-          this.size.h = this.$desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
+          this.size.w = this.desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
+          this.size.h = this.desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
         } else if (this.$store.state.env.ui.sidebar.position == 'bottom') {
           this.pos.x = 0
           this.pos.y = this.$store.state.env.ui.activityBar.height
-          this.size.w = this.$desktop.$el.offsetWidth
-          this.size.h = (this.$desktop.$el.offsetHeight - this.$store.state.env.ui.sidebar.width) - this.$store.state.env.ui.activityBar.height
+          this.size.w = this.desktop.$el.offsetWidth
+          this.size.h = (this.desktop.$el.offsetHeight - this.$store.state.env.ui.sidebar.width) - this.$store.state.env.ui.activityBar.height
         } else {
           this.pos.x = this.$store.state.env.ui.sidebar.width
           this.pos.y = this.$store.state.env.ui.activityBar.height
-          this.size.h = this.$desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
-          this.size.w = this.$desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
+          this.size.h = this.desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
+          this.size.w = this.desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
         }
       }
     }

@@ -24,6 +24,14 @@ export default {
     max: {
       type: Number,
       default: 100,
+    },
+    showMin: {
+      type: Boolean,
+      default: true
+    },
+    showMax: {
+      type: Boolean,
+      default: false,
     }
   },
 
@@ -38,7 +46,8 @@ export default {
   },
   computed: {
     style() {
-      let width = ((this.content) / this.max) * 100
+
+      let width = (this.content - this.min) / (this.max - this.min) * 100
 
       return {
         background: `linear-gradient(to right, #dd4814 0%, #dd4814 ${width}%, #363633 ${width}%, #363633 100%)`
@@ -73,6 +82,7 @@ export default {
 <style scoped>
 .slider {
   width: 100%;
+  max-width: 100%;
   -webkit-appearance: none;
   height: 5px;
   border-radius: 4px;
@@ -87,6 +97,6 @@ export default {
   border-radius: 50%;
   background: #eeeeec;
   cursor: pointer;
-  z-index: 1;
+  align: middle;
 }
 </style>
