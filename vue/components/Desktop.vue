@@ -1,5 +1,5 @@
 <template>
-<div :style="$store.state.style">
+<div :style="$store.state.style" @contextmenu.prevent>
   <div :class="{debugging: $store.state.env.debug.active }"
     :style="{ backgroundSize: `${$store.state.env.debug.grid.size}px ${$store.state.env.debug.grid.size}px` }"></div>
 
@@ -20,7 +20,7 @@
       <DesktopIcon v-for="(app, index) in apps"
         :app="app"
         :key="index"
-        :initialPos="{x: 84, y: (index+1)*44+(index*54) }" />
+        :initialPos="{x: 54, y: (index+1)*54+(index*54) }" />
 
       <DebugWindow v-show="$store.state.env.debug.active" />
 

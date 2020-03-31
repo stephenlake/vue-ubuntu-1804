@@ -1,7 +1,7 @@
 <template>
 <div class="draggable"
   :class="{ highZindex: dragging }"
-  @mousedown.prevent="startDrag">
+  @mousedown.left.prevent="startDrag">
   <slot></slot>
 </div>
 </template>

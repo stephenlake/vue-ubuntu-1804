@@ -3,7 +3,7 @@
   class="resizable"
   @mouseleave.prevent="revertCursor"
   @mousemove.prevent="updateCursor"
-  @mousedown="startResize">
+  @mousedown.left="startResize">
   <slot></slot>
 </div>
 </template>

@@ -39,7 +39,7 @@ export default {
       if (!mode) {
         this.searchTerm = ''
         this.active = false
-        this.$emit('exitRequested')
+        this.$emit('exit')
       } else {
         this.active = true
       }
@@ -78,7 +78,7 @@ export default {
       if (this.searchTerm.length) {
         this.searchTerm = ''
       } else {
-        this.mode = null
+        this.$emit('exit')
       }
     }
   }

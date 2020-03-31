@@ -9,7 +9,7 @@ export default new Vuex.Store({
       debug: {
         active: true,
         grid: {
-          size: 32,
+          size: 36,
         }
       },
       ui: {
@@ -18,7 +18,7 @@ export default new Vuex.Store({
         sidebar: {
           position: 'left',
           opacity: 0.1,
-          width: 64,
+          width: 36,
         },
         activityBar: {
           height: 26,

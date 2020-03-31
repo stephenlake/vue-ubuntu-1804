@@ -1,5 +1,5 @@
 <template>
-<div class="titlebar" @dblclick="maximizeToggle">
+<div class="titlebar" @dblclick.left.prevent="maximizeToggle">
   <draggable :x="windowPos.x" :y="windowPos.y" @dragged="dragged">
     <div class="title">
       <slot></slot>
