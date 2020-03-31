@@ -2,9 +2,8 @@
 <popdown class="right"
   :show="show">
 
-
   <Slider />
-
+  
   <div class="buttons">
     <hr class="separator" />
     <div class="button settings">

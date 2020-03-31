@@ -35,6 +35,9 @@ export default {
   },
 
   watch: {
+    active: function(active) {
+      this.$store.state.env.ui.activityOverlayOpen = active
+    },
     mode: function(mode) {
       if (!mode) {
         this.searchTerm = ''

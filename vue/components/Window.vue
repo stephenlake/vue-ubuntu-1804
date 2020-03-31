@@ -6,7 +6,8 @@
   :x="pos.x"
   :y="pos.y"
   @resized="resized"
-  @dragged="dragged">
+  @dragged="dragged"
+  v-show="$store.state.env.ui.activityOverlayOpen === false">
   <window-titlebar :windowPos="pos"
     @maximize="maximize"
     @dragged="dragged">
@@ -87,6 +88,18 @@ export default {
   },
 
   watch: {
+    x: function(x) {
+      this.pos.x = x
+    },
+    y: function(y) {
+      this.pos.y = y
+    },
+    w: function(w) {
+      this.size.w = w
+    },
+    h: function(h) {
+      this.size.h = h
+    },
     '$store.state.env.ui.sidebar.position': function() {
       this.updateWindowProps()
     },

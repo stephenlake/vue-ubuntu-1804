@@ -1,11 +1,13 @@
 <template>
 <div class="container">
-  <div class="window-size"
-    :style="sizeTextStyle"
-    v-if="$store.state.env.debug.active">{{ size.w }} x {{ size.h }}</div>
+
   <div class="content">
     <slot></slot>
   </div>
+
+  <div class="window-size"
+    :style="sizeTextStyle"
+    v-if="$store.state.env.debug.active">{{ Math.round(size.w) }} x {{ Math.round(size.h) }}</div>
 </div>
 </template>
 <script>
@@ -43,7 +45,7 @@ export default {
   },
 }
 </script>
-<style scope>
+<style scoped>
 .container {
   padding: 0;
   margin: 0;
@@ -58,10 +60,6 @@ export default {
   transform: translate(-50%, -50%);
   margin: 0 auto;
   color: #312d2d2e;
-  z-index: 1;
-}
-
-.container .content {
-  z-index: 1;
+  z-index: -1;
 }
 </style>

@@ -13,6 +13,7 @@ export default new Vuex.Store({
         }
       },
       ui: {
+        activityOverlayOpen: false,
         windowsMaximized: 0,
         fullscreen: false,
         sidebar: {

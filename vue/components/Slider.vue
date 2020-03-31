@@ -2,24 +2,70 @@
 <div>
   <input class="slider"
     type="range"
-    min="0"
-    max="100"
-    v-model="value"
+    :min="min"
+    :max="max"
+    v-model="content"
+    v-on:input="inputChanged"
+    v-bind="$attrs"
     :style="style">
 </div>
 </template>
 <script>
 export default {
+
+  inheritAttrs: false,
+
+  props: {
+    value: {},
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    }
+  },
+
+  mounted() {
+    this.content = this.value
+  },
+
   data() {
     return {
-      value: 60,
+      content: 0,
     }
   },
   computed: {
     style() {
+      let width = ((this.content) / this.max) * 100
+
       return {
-        background: `linear-gradient(to right, #dd4814 0%, #dd4814 ${this.value}%, #363633 ${this.value}%, #363633 100%)`
+        background: `linear-gradient(to right, #dd4814 0%, #dd4814 ${width}%, #363633 ${width}%, #363633 100%)`
       }
+    }
+  },
+  watch: {
+    value: function(value) {
+      if (!value) {
+        this.content = null
+      } else {
+        this.content = value
+        this.inputChanged()
+      }
+    }
+  },
+  methods: {
+    inputChanged() {
+      this.$emit('input', this.content)
+    },
+    inputFocused() {
+      this.focused = true
+      this.$emit('focused')
+    },
+    inputBlurred() {
+      this.focused = false
+      this.$emit('blurred')
     }
   }
 }
@@ -41,5 +87,6 @@ export default {
   border-radius: 50%;
   background: #eeeeec;
   cursor: pointer;
+  z-index: 1;
 }
 </style>

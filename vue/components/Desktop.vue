@@ -1,32 +1,30 @@
 <template>
-<div :style="$store.state.style" @contextmenu.prevent>
-  <div :class="{debugging: $store.state.env.debug.active }"
-    :style="{ backgroundSize: `${$store.state.env.debug.grid.size}px ${$store.state.env.debug.grid.size}px` }"></div>
+<container :style="$store.state.style">
+  <div class="background"
+    :style="style">
+    <div :class="{debugging: $store.state.env.debug.active }"
+      :style="{ backgroundSize: `${$store.state.env.debug.grid.size}px ${$store.state.env.debug.grid.size}px` }"
+      @contextmenu.prevent=""></div>
 
-  <container>
-    <div class="background"
-      :style="style">
+    <activity-overlay ref="overlay"
+      @exit="deactivateOverlay"
+      :mode="overlayMode"></activity-overlay>
 
-      <activity-overlay ref="overlay"
-        @exit="deactivateOverlay"
-        :mode="overlayMode"></activity-overlay>
+    <activity-bar @activated="activateOverlay"
+      :overlayActive="overlayActive"></activity-bar>
 
-      <activity-bar @activated="activateOverlay"
-        :overlayActive="overlayActive"></activity-bar>
+    <activity-sidebar @activated="activateOverlay"
+      :overlayActive="overlayActive"></activity-sidebar>
 
-      <activity-sidebar @activated="activateOverlay"
-        :overlayActive="overlayActive"></activity-sidebar>
+    <DesktopIcon v-for="(app, index) in apps"
+      :app="app"
+      :key="index"
+      :initialPos="{x: 54, y: (index+1)*54+(index*54) }" />
 
-      <DesktopIcon v-for="(app, index) in apps"
-        :app="app"
-        :key="index"
-        :initialPos="{x: 54, y: (index+1)*54+(index*54) }" />
+    <DebugWindow v-show="$store.state.env.debug.active" />
 
-      <DebugWindow v-show="$store.state.env.debug.active" />
-
-    </div>
-  </container>
-</div>
+  </div>
+</container>
 </template>
 <script>
 import Collect from 'collect.js'
@@ -45,9 +43,6 @@ export default {
     apps() {
       return Collect(this.$store.state.system.activities.available).where('desktop', true).all()
     }
-  },
-  mounted() {
-    this.$store.state.references.desktop = this
   },
   methods: {
     registerKeyListener() {
@@ -88,6 +83,7 @@ export default {
   },
 
   created() {
+    this.$store.state.references.desktop = this
     this.registerKeyListener()
   },
 
@@ -119,7 +115,7 @@ body {
   width: 100%;
   height: 100vh;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
 .debugging {

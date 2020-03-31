@@ -1,19 +1,30 @@
 <template>
-<window :w="220"
-  :h="500">
+<window :w="size.w"
+  :h="size.h"
+  :x="pos.x"
+  :y="pos.y">
   <template v-slot:titlebar>
     Sandbox
   </template>
   <template v-slot:content>
     <div class="field">
-      <label>Grid Block Size (Default: 32)</label>
-      <input v-model="$store.state.env.debug.grid.size"
-        type="text">
+      <label>Grid Block Size {{ $store.state.env.debug.grid.size }} Default: 32</label>
+      <Slider v-model="$store.state.env.debug.grid.size"
+        :min="0"
+        :max="200" />
     </div>
     <div class="field">
-      <label>Sidebar Size (Default: 32)</label>
-      <input v-model="$store.state.env.ui.sidebar.width"
-        type="text">
+      <label>Sidebar Size Current: {{ $store.state.env.ui.sidebar.width }} Default: 32</label>
+      <Slider v-model="$store.state.env.ui.sidebar.width"
+        :min="0"
+        :max="200" />
+    </div>
+
+    <div class="field">
+      <label>Activity Bar Size: {{ $store.state.env.ui.activityBar.height }} Default: 26</label>
+      <Slider v-model="$store.state.env.ui.activityBar.height"
+        :min="0"
+        :max="64" />
     </div>
 
     <div class="field">
@@ -26,31 +37,33 @@
     </div>
 
     <div class="field">
-      <label>Activity Bar Size (Default: 26)</label>
-      <input v-model="$store.state.env.ui.activityBar.height"
-        type="text">
+      <label>Debug toggle: <strong>F10</strong> (Default: true)</label>
     </div>
 
     <div class="field">
-      <label>Fullscreen toggle: F11 (Default: false)</label>
+      <label>Fullscreen toggle: <strong>F11</strong> (Default: false)</label>
     </div>
 
-    <div class="field">
-      <label>Debug toggle: F10 (Default: true)</label>
-    </div>
-
-    <!-- <div class="field">
-      <label>Spawn:</label><br>
-      <button>Window</button>
-      <button>Random App</button>
-    </div> -->
   </template>
 </window>
 </template>
 <script>
 export default {
-  methods: {
-
+  mounted() {
+    this.pos.x = this.$desktop.$el.offsetWidth - (this.size.w + 30)
+    this.pos.y = this.$desktop.$el.offsetHeight - (this.size.h + 30)
+  },
+  data() {
+    return {
+      size: {
+        w: 520,
+        h: 400,
+      },
+      pos: {
+        x: 600,
+        y: 200,
+      }
+    }
   }
 }
 </script>

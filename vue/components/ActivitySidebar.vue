@@ -41,6 +41,8 @@ export default {
       if (this.properties.position === 'bottom') {
         style.height = `${this.properties.width}px`
       } else {
+        style.top = `${this.$store.state.env.ui.activityBar.height}px`
+        style.paddingTop = '6px'
         style.width = `${this.properties.width}px`
       }
 
@@ -62,16 +64,12 @@ export default {
 }
 
 .sidebar.left {
-  top: 26px;
   left: 0;
-  padding-top: 6px;
   height: 100%;
 }
 
 .sidebar.right {
-  top: 26px;
   right: 0;
-  padding-top: 6px;
   height: 100%;
 }
 
