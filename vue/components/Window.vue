@@ -71,7 +71,7 @@ export default {
   },
 
   beforeDestroy() {
-    if (This.maximized) {
+    if (this.maximized) {
       this.$store.state.env.ui.windowsMaximized--
     }
   },
