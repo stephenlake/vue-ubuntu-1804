@@ -70,6 +70,12 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    if (This.maximized) {
+      this.$store.state.env.ui.windowsMaximized--
+    }
+  },
+
   data() {
     return {
       maximized: false,
