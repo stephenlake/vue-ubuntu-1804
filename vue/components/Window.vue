@@ -1,9 +1,22 @@
 <template>
-<resizable class="window" :style="windowStyle" :w="size.w" :h="size.h" :x="pos.x" :y="pos.y" @resized="resized" @dragged="dragged">
-  <window-titlebar :windowPos="pos" @maximize="maximize" @dragged="dragged">
+<resizable class="window"
+  :style="windowStyle"
+  :w="size.w"
+  :h="size.h"
+  :x="pos.x"
+  :y="pos.y"
+  @resized="resized"
+  @dragged="dragged">
+  <window-titlebar :windowPos="pos"
+    @maximize="maximize"
+    @dragged="dragged">
     <slot name="titlebar"></slot>
   </window-titlebar>
-  <container @resized="$emit('resized', $event)"></container>
+
+  <container>
+    <slot name="content"></slot>
+  </container>
+
 </resizable>
 </template>
 <script>
@@ -73,12 +86,26 @@ export default {
     }
   },
 
+  watch: {
+    '$store.state.env.ui.sidebar.position': function() {
+      this.updateWindowProps()
+    },
+    '$store.state.env.ui.sidebar.width': function() {
+      this.updateWindowProps()
+    },
+    '$store.state.env.ui.activityBar.height': function() {
+      this.updateWindowProps()
+    }
+  },
+
   methods: {
     maximize() {
       this.maximized = !this.maximized
       this.maximizing = true
 
       if (this.maximized) {
+        this.$store.state.env.ui.windowsMaximized++
+
         // Store the current position for restore
         this.transient.pos = {
           x: this.pos.x,
@@ -91,13 +118,10 @@ export default {
           h: this.size.h
         }
 
-        this.pos.x = 0
-        this.pos.y = 0
-
-        // Set size equal to the desktop's size
-        this.size.w = this.$desktop.$el.offsetWidth
-        this.size.h = this.$desktop.$el.offsetHeight
+        this.updateWindowProps()
       } else {
+        this.$store.state.env.ui.windowsMaximized--
+
         // Restore dimensions before maximizing
         this.pos.x = this.transient.pos.x
         this.pos.y = this.transient.pos.y
@@ -120,6 +144,27 @@ export default {
       this.size.w = size.w
       this.size.h = size.h
       this.$emit('resized', size)
+    },
+    updateWindowProps() {
+      if (this.maximized) {
+
+        if (this.$store.state.env.ui.sidebar.position == 'right') {
+          this.pos.x = 0
+          this.pos.y = this.$store.state.env.ui.activityBar.height
+          this.size.w = this.$desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
+          this.size.h = this.$desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
+        } else if (this.$store.state.env.ui.sidebar.position == 'bottom') {
+          this.pos.x = 0
+          this.pos.y = this.$store.state.env.ui.activityBar.height
+          this.size.w = this.$desktop.$el.offsetWidth
+          this.size.h = (this.$desktop.$el.offsetHeight - this.$store.state.env.ui.sidebar.width) - this.$store.state.env.ui.activityBar.height
+        } else {
+          this.pos.x = this.$store.state.env.ui.sidebar.width
+          this.pos.y = this.$store.state.env.ui.activityBar.height
+          this.size.h = this.$desktop.$el.offsetHeight - this.$store.state.env.ui.activityBar.height
+          this.size.w = this.$desktop.$el.offsetWidth - this.$store.state.env.ui.sidebar.width
+        }
+      }
     }
   }
 }
@@ -139,15 +184,7 @@ export default {
   border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-.content {
-  margin-top: 36px;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  z-index: 4;
 }
 
 .resizable {

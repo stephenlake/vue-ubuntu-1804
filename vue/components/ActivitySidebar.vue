@@ -11,8 +11,8 @@
 
   <ActivitySidebarIcon class="toggler"
     tooltip="Show Applications"
-    :baseWidth="properties.width"
-    :app="false"
+    :baseWidth="$store.state.env.ui.sidebar.width"
+    :app="{ name: 'Show Applications', iconGeneric: '/img/ico/sidebar-activity-toggler.png', toggler: true}"
     :barPlacement="`bar-${properties.position}`"
     @clicked="toggleOverlay" />
 
@@ -22,22 +22,20 @@
 import Collect from 'collect.js'
 
 export default {
-  data() {
-    return {
-      properties: {
-        position: 'left',
-        width: 46,
-        opacity: 0.1,
-      }
-    }
-  },
   computed: {
+    properties() {
+      return this.$store.state.env.ui.sidebar
+    },
     apps() {
       return Collect(this.$store.state.system.activities.available).where('favorite', true).all()
     },
     style() {
-      let style = {
-        background: `rgba(0,0,0, ${this.properties.opacity})`
+      let style = {}
+
+      if (this.$store.state.env.ui.windowsMaximized > 0) {
+        style.background = `#4a333c`
+      } else {
+        style.background = `rgba(0,0,0, ${this.properties.opacity})`
       }
 
       if (this.properties.position === 'bottom') {
@@ -60,6 +58,7 @@ export default {
 .sidebar {
   position: absolute;
   z-index: 101;
+  transition: background 300ms ease-in;
 }
 
 .sidebar.left {

@@ -1,7 +1,11 @@
 <template>
 <div class="container">
-  <div class="window-size" :style="sizeTextStyle" v-if="$store.state.env.debug">{{ size.w }} x {{ size.h }}</div>
-  <slot></slot>
+  <div class="window-size"
+    :style="sizeTextStyle"
+    v-if="$store.state.env.debug.active">{{ size.w }} x {{ size.h }}</div>
+  <div class="content">
+    <slot></slot>
+  </div>
 </div>
 </template>
 <script>
@@ -39,23 +43,25 @@ export default {
   },
 }
 </script>
-<style>
+<style scope>
 .container {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  align-items: center;
 }
 
 .container .window-size {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: 0 auto;
-  color: #000000;
+  color: #312d2d2e;
+  z-index: 1;
+}
+
+.container .content {
+  z-index: 1;
 }
 </style>

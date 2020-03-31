@@ -3,9 +3,9 @@
   @click="$emit('clicked')"
   :style="style">
 
-  <div class="icon"
-    :style="iconStyle">
-    <img :src="app.iconGeneric" />
+  <div class="icon">
+    <img :src="asset(app.iconGeneric)"
+      v-if="app.iconGeneric" />
   </div>
 
 </div>
@@ -16,31 +16,17 @@ export default {
 
   computed: {
     style() {
-      let style = {}
-
-      style.width = `${this.size}px`
-      style.height = `${this.size}px`
-
-      return style
+      return {
+        width: `${this.size}px`,
+        height: `${this.size}px`,
+      }
     },
     size() {
-      if (this.app) {
-        return this.baseWidth - 16
+      if (this.app.toggler) {
+        return this.baseWidth
       } else {
-        return this.baseWidth + 2
+        return this.baseWidth - 16
       }
-    },
-    iconStyle() {
-      let style = {}
-
-      if (!this.app) {
-        style.width = `${this.baseWidth-10}px`
-        style.height = `${this.baseWidth-10}px`
-        style.backgroundImage = `url(${(process.env.NODE_ENV == 'production' ? window.location.pathname : '') +
-          '/assets/img/ico/sidebar-activity-toggler.png'})`
-      }
-
-      return style
     }
   }
 }
@@ -48,9 +34,13 @@ export default {
 <style scoped>
 .app {
   text-align: center;
-  padding: 5px;
   border-radius: 3px;
   margin: 0.1em;
+  max-width: 100%;
+}
+
+.app:not(.toggler) {
+  padding: 5px;
 }
 
 .app:hover {
@@ -63,38 +53,27 @@ export default {
 
 .app .icon img {
   width: 100%;
+  max-width: 100%;
 }
 
-.toggler:not(.bar-bottom) {
+.app.toggler:not(.bar-bottom) {
   position: absolute;
-  left: -1px;
   bottom: 30px;
-  padding: 0;
-  margin: 0;
-  border-radius: 3px;
 }
 
-.toggler.bar-bottom {
+.app.toggler.bar-bottom {
   position: absolute;
-  right: -1px;
+  top: 0;
+  right: 0;
   bottom: 0;
-  padding: 0;
   margin: 0;
-  border-radius: 3px;
 }
 
-.toggler .icon {
-  position: relative;
-  bottom: 0;
+.app.toggler .icon {
+  position: absolute;
+  padding: 1%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-repeat: no-repeat;
-  background-size: 50% 50%;
-  background-position: center center;
-}
-
-.toggler:hover {
-  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>

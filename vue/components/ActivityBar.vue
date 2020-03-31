@@ -11,8 +11,8 @@
     {{ datetime.value.format('{day-short} {hour-24-pad}:{minute-pad}') }}
   </div>
 
-  <CalendarPopdown :show="datetime.showPopdown"/>
-  <SettingsPopdown :show="settings.showPopdown"/>
+  <CalendarPopdown :show="datetime.showPopdown" />
+  <SettingsPopdown :show="settings.showPopdown" />
 
   <div class="label taskbar"
     @click="settings.showPopdown = !settings.showPopdown">
@@ -36,10 +36,6 @@ export default {
       },
       settings: {
         showPopdown: false,
-      },
-      properties: {
-        height: 26,
-        opacity: 0.1,
       }
     }
   },
@@ -63,11 +59,21 @@ export default {
     }
   },
   computed: {
+    properties() {
+      return this.$store.state.env.ui.activityBar
+    },
     style() {
-      return {
+      let style = {
         height: `${this.properties.height}px`,
-        background: `rgba(0,0,0, ${this.properties.opacity})`
       }
+
+      if (this.$store.state.env.ui.windowsMaximized > 0) {
+        style.backgroundImage = `linear-gradient(to bottom, #55534b 60%, #43423d)`
+      } else {
+        style.background = `rgba(0,0,0, ${this.properties.opacity})`
+      }
+
+      return style
     }
   }
 }
@@ -79,8 +85,8 @@ export default {
   top: 0;
   width: 100%;
   height: 26px;
-  background: rgba(0, 0, 0, 0.1);
   z-index: 101;
+  transition: background 300ms ease-in;
 }
 
 .activity-bar .label {

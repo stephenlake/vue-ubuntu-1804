@@ -6,7 +6,25 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     env: {
-      debug: false,
+      debug: {
+        active: true,
+        grid: {
+          size: 32,
+        }
+      },
+      ui: {
+        windowsMaximized: 0,
+        fullscreen: false,
+        sidebar: {
+          position: 'left',
+          opacity: 0.1,
+          width: 64,
+        },
+        activityBar: {
+          height: 26,
+          opacity: 0.1,
+        }
+      }
     },
     style: {
       cursor: 'default',
@@ -26,7 +44,7 @@ export default new Vuex.Store({
               'notepad',
               'editor',
             ],
-            favorite: false,
+            favorite: true,
             desktop: false,
           },
           {

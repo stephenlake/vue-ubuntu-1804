@@ -28,7 +28,7 @@ export default {
 </script>
 <style>
 .titlebar {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   background-image: linear-gradient(to bottom, #55534b 60%, #43423d);
@@ -40,6 +40,7 @@ export default {
   font-weight: 600;
   height: 36px;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .titlebar .title {

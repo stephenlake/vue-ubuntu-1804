@@ -1,5 +1,9 @@
 <template>
-<div class="resizable" @mouseleave.prevent="revertCursor" @mousemove.prevent="updateCursor" @mousedown.prevent="startResize">
+<div resiable="true"
+  class="resizable"
+  @mouseleave.prevent="revertCursor"
+  @mousemove.prevent="updateCursor"
+  @mousedown="startResize">
   <slot></slot>
 </div>
 </template>
@@ -56,7 +60,7 @@ export default {
     },
     updateCursor(e) {
       if (this.resizing) {
-        return
+        return false
       }
 
       if (this.isTop(e)) {
@@ -84,16 +88,16 @@ export default {
       }
     },
     isTop(e) {
-      return e.offsetY <= this.resizeHandleSize && e.offsetY > 0
+      return e.clientY <= this.$el.offsetTop + this.resizeHandleSize
     },
     isRight(e) {
-      return e.offsetX >= this.$el.clientWidth - this.resizeHandleSize
+      return e.clientX >= (this.$el.offsetLeft + this.$el.clientWidth) - (this.resizeHandleSize / 2)
     },
     isBottom(e) {
-      return e.offsetY > this.$el.clientHeight - this.resizeHandleSize
+      return e.clientY > (this.$el.offsetTop + this.$el.clientHeight) - (this.resizeHandleSize / 2)
     },
     isLeft(e) {
-      return e.offsetX <= this.resizeHandleSize
+      return e.clientX <= this.$el.offsetLeft + (this.resizeHandleSize / 2)
     },
     startResize(e) {
       this.resizeTop = this.isTop(e)

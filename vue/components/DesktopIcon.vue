@@ -2,6 +2,10 @@
 <div class="icon"
   :style="style"
   @dblclick="$emit('opened')">
+  <div class="debug"
+    v-if="$store.state.env.debug.active">
+    x: {{ pos.x }} y: {{ pos.y }}
+  </div>
   <draggable @dragged="dragged"
     :x="pos.x"
     :y="pos.y">
@@ -62,6 +66,18 @@ export default {
   z-index: 3;
 }
 
+.icon .debug {
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 32px;
+  transform: translate(-50%, -100%);
+  padding: 5px;
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+}
+
 .icon .graphic {
   width: 48px;
 }
@@ -78,7 +94,7 @@ export default {
   /* Half of total icon */
   transform: translate(-50%, 0);
   margin: 0 auto;
-  padding: 2px 5px ;
+  padding: 2px 5px;
 }
 
 .icon.active .name {
